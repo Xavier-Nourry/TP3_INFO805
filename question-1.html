@@ -37,14 +37,14 @@
 						1, 4000 );
 	  // Create a texture-mapped cube and add it to the scene
 	  // First, create the texture map
-	  var mapUrl = "images/webgl-logo-256.jpg";
+	  var mapUrl = "images/earth_atmos_2048.jpg";
 	  var map    = new THREE.TextureLoader().load( mapUrl );
 	  
 	  // Now, create a Basic material; pass in the map
 	  var material = new THREE.MeshBasicMaterial({ map: map });
 	  
-	  // Create the cube geometry
-	  var geometry = new THREE.BoxGeometry(2, 2, 2);
+	  // Create the sphere/earth geometry
+	  var geometry = new THREE.SphereGeometry( 1, 32, 32 );
 	  
 	  // And put the geometry and material together into a mesh
 	  cube = new THREE.Mesh(geometry, material);
