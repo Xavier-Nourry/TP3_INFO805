@@ -41,7 +41,7 @@
 	  var map    = new THREE.TextureLoader().load( mapUrl );
 	  
 	  // Now, create a Basic material; pass in the map
-	  var material = new THREE.MeshBasicMaterial({ map: map });
+	  var material = new THREE.MeshPhongMaterial({ map: map });
 	  
 	  // Create the sphere/earth geometry
 	  var geometry = new THREE.SphereGeometry( 1, 32, 32 );
@@ -54,8 +54,12 @@
 	  cube.rotation.x = Math.PI / 5;
 	  cube.rotation.y = Math.PI / 5;
 	  
-	  // Finally, add the mesh to our scene
+	  // Add a white point light
+	  light = new THREE.PointLight( 0xffffff, 1.5);
+
+	  // Finally, add the mesh and the light(s) to our scene
 	  scene.add( cube );
+	  scene.add(light);
       }
       
       // This function is called regularly to update the canvas webgl.
