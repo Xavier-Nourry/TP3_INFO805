@@ -35,30 +35,31 @@
 	  // Add  a camera so we can view the scene
 	  camera = new THREE.PerspectiveCamera( 45, canvas.width / canvas.height,
 						1, 4000 );
-	  // Create a texture-mapped cube and add it to the scene
+	  // Create a texture-mapped sun and add it to the scene
 	  // First, create the texture map
-	  var mapUrl = "images/earth_atmos_2048.jpg";
+	  var mapUrl = "images/sun.jpg";
 	  var map    = new THREE.TextureLoader().load( mapUrl );
 	  
 	  // Now, create a Basic material; pass in the map
-	  var material = new THREE.MeshPhongMaterial({ map: map });
-	  
-	  // Create the sphere/earth geometry
+	  var material = new THREE.MeshBasicMaterial({ map: map });
+		
+	  // Create the sun geometry
 	  var geometry = new THREE.SphereGeometry( 1, 32, 32 );
 	  
 	  // And put the geometry and material together into a mesh
-	  cube = new THREE.Mesh(geometry, material);
+	  sun = new THREE.Mesh(geometry, material);
 	  
 	  // Move the mesh back from the camera and tilt it toward the viewer
-	  cube.position.z = -8;
-	  cube.rotation.x = Math.PI / 5;
-	  cube.rotation.y = Math.PI / 5;
+	  sun.position.z = -8;
+	  sun.rotation.x = Math.PI / 5;
+	  sun.rotation.y = Math.PI / 5;
 	  
 	  // Add a white point light
-	  light = new THREE.PointLight( 0xffffff, 1.5);
+	  light = new THREE.PointLight( 0xffffff);
+	  light.position = sun.position;
 
 	  // Finally, add the mesh and the light(s) to our scene
-	  scene.add( cube );
+	  scene.add(sun);
 	  scene.add(light);
       }
       
@@ -98,7 +99,7 @@
   <body>
     <div id="info"> a first three.js example </div>
     <canvas id="webglcanvas" style="border: none;background-color:#000000"
-	    width="600" height="500"></canvas>
+	    width="1280" height="720"></canvas>
     <!-- We run the WebGL code at the end to be sure that the document is loaded.
       -->
     <script>
