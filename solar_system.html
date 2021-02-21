@@ -52,7 +52,9 @@
       // Add  a camera so we can view the scene
       camera = new THREE.PerspectiveCamera( 45, canvas.width / canvas.height,
               1, 4000 );
-      camera.position.z = 10; // Décalage de la caméra pour voir le soleil en (0,0,0)
+      camera.position.z = 100; // Décalage de la caméra pour voir le soleil en (0,0,0)
+      /*camera.position.y = 10000; // Décalage de la caméra pour voir le soleil en (0,0,0)
+      camera.position.x = 10000; // Décalage de la caméra pour voir le soleil en (0,0,0)*/
 
       // Creation des groupes
       // Groupe système solaire
@@ -63,12 +65,28 @@
       earth_group = new THREE.Group();
       // Groupe Lune
       moon_group = new THREE.Group();
+      // Groupe Pluton
+      pluton_group = new THREE.Group();
+      // Groupe Neptune
+      neptune_group = new THREE.Group();
+      // Groupe Uranus
+      uranus_group = new THREE.Group();
+      // Groupe Saturne
+      saturne_group = new THREE.Group();
+      // Groupe Jupiter
+      jupiter_group = new THREE.Group();
+      // Groupe Mercure
+      mercure_group = new THREE.Group();
+      // Groupe Venus
+      venus_group = new THREE.Group();
+      // Groupe Mars
+      mars_group = new THREE.Group();
 
       // Enrichissement du groupe Soleil
-      var sunMapUrl = "images/sun.jpg";
+      var sunMapUrl = "images/Sun/sun.jpg";
       var sunMap    = new THREE.TextureLoader().load( sunMapUrl );
       var sunMaterial = new THREE.MeshBasicMaterial({ map: sunMap });
-      var sunGeometry = new THREE.SphereGeometry( 1, 32, 32 );
+      var sunGeometry = new THREE.SphereGeometry( 11, 32, 32 );
       sun = new THREE.Mesh(sunGeometry, sunMaterial);
       sun.rotation.x = Math.PI / 5;
       sun.rotation.y = Math.PI / 5;
@@ -77,42 +95,148 @@
       sunLight.intensity = 1.7;
       // On indique que la lumière du soleil peut créer des ombres
       sunLight.castShadow = true;
-      sunLight.shadow.camera.far = 50;
+      sunLight.shadow.camera.far = 500;
       sun_group.add(sun);
       sun_group.add(sunLight);
 
+      // Enrichissement du groupe Mercure
+      var mercureMapUrl = "images/Mercure/mercure.jpg";
+      var mercureMap    = new THREE.TextureLoader().load( mercureMapUrl );
+      var mercureMaterial = new THREE.MeshPhongMaterial({ map: mercureMap });
+      var mercureGeometry = new THREE.SphereGeometry( 1, 32, 32 );
+      mercure = new THREE.Mesh(mercureGeometry, mercureMaterial);
+      mercure.position.set(13, 0, 0);
+      
+      mercure_group.add(mercure);
+
+      // Enrichissement du groupe Venus
+      var venusMapUrl = "images/Vénus/venus.jpg";
+      var venusMap    = new THREE.TextureLoader().load( venusMapUrl );
+      var venusMaterial = new THREE.MeshPhongMaterial({ map: venusMap });
+      var venusGeometry = new THREE.SphereGeometry( 3, 32, 32 );
+      venus = new THREE.Mesh(venusGeometry, venusMaterial);
+      venus.position.set(18, 0, 0);
+      
+      venus_group.add(venus);
+
       // Enrichissement du groupe Terre / Lune
       /* Terre */
-      var earthMapUrl = "images/earth_atmos_2048.jpg";
+      var earthMapUrl = "images/Earth/earth_atmos_2048.jpg";
       var earthMap    = new THREE.TextureLoader().load( earthMapUrl );
       var earthMaterial = new THREE.MeshPhongMaterial({ map: earthMap });
-      var earthGeometry = new THREE.SphereGeometry( 0.5, 32, 32 );
+      var earthGeometry = new THREE.SphereGeometry( 3, 32, 32 );
       earth = new THREE.Mesh(earthGeometry, earthMaterial);
-      earth.position.set(3, 0, 0);
+      earth.position.set(25, 0, 0);
 
       /* Lune */
-      var moonMapUrl = "images/moon_1024.jpg";
+      var moonMapUrl = "images/Moon/moon_1024.jpg";
       var moonMap    = new THREE.TextureLoader().load( moonMapUrl );
       var moonMaterial = new THREE.MeshPhongMaterial({ map: moonMap });
-      var moonGeometry = new THREE.SphereGeometry( 0.2, 32, 32 );
+      var moonGeometry = new THREE.SphereGeometry( 1, 32, 32 );
       moon = new THREE.Mesh(moonGeometry, moonMaterial);
-      moon.position.set(1, 0, 0);
-      
+      moon.position.set(5, 0, 0);
+
       earth_group.add(earth);
       moon_group.add(moon);
       moon_group.position.set(earth.position.x, earth.position.y, earth.position.z);
       earth_group.add(moon_group);
 
+      // Enrichissement du groupe Mars
+      var marsMapUrl = "images/Mars/mars.jpg";
+      var marsMap    = new THREE.TextureLoader().load( marsMapUrl );
+      var marsMaterial = new THREE.MeshPhongMaterial({ map: marsMap });
+      var marsGeometry = new THREE.SphereGeometry( 2, 32, 32 );
+      mars = new THREE.Mesh(marsGeometry, marsMaterial);
+      mars.position.set(34, 0, 0);
+      
+      mars_group.add(mars);
+
+      // Enrichissement du groupe Jupiter
+      var jupiterMapUrl = "images/Jupiter/8k_jupiter.jpg";
+      var jupiterMap    = new THREE.TextureLoader().load( jupiterMapUrl );
+      var jupiterMaterial = new THREE.MeshPhongMaterial({ map: jupiterMap });
+      var jupiterGeometry = new THREE.SphereGeometry( 10, 32, 32 );
+      jupiter = new THREE.Mesh(jupiterGeometry, jupiterMaterial);
+      jupiter.position.set(47, 0, 0);
+      
+      jupiter_group.add(jupiter);
+
+      // Enrichissement du groupe Saturne
+      var saturneMapUrl = "images/Saturne/saturne.jpg";
+      var saturneMap    = new THREE.TextureLoader().load( saturneMapUrl );
+      var saturneMaterial = new THREE.MeshPhongMaterial({ map: saturneMap });
+      var saturneGeometry = new THREE.SphereGeometry( 7, 32, 32 );
+      saturne = new THREE.Mesh(saturneGeometry, saturneMaterial);
+      saturne.position.set(65, 0, 0);
+      
+      saturne_group.add(saturne);
+
+      // Enrichissement du groupe Uranus
+      var uranusMapUrl = "images/Uranus/2k_uranus.jpg";
+      var uranusMap    = new THREE.TextureLoader().load( uranusMapUrl );
+      var uranusMaterial = new THREE.MeshPhongMaterial({ map: uranusMap });
+      var uranusGeometry = new THREE.SphereGeometry( 8, 32, 32 );
+      uranus = new THREE.Mesh(uranusGeometry, uranusMaterial);
+      uranus.position.set(81, 0, 0);
+      
+      uranus_group.add(uranus);
+
+      // Enrichissement du groupe Neptune
+      var neptuneMapUrl = "images/Neptune/neptune.webp";
+      var neptuneMap    = new THREE.TextureLoader().load( neptuneMapUrl );
+      var neptuneMaterial = new THREE.MeshPhongMaterial({ map: neptuneMap });
+      var neptuneGeometry = new THREE.SphereGeometry( 9, 32, 32 );
+      neptune = new THREE.Mesh(neptuneGeometry, neptuneMaterial);
+      neptune.position.set(99, 0, 0);
+      
+      neptune_group.add(neptune);
+
+      // Enrichissement du groupe Pluton
+      var plutonMapUrl = "images/Pluton/2k_eris_fictional.jpg";
+      var plutonMap    = new THREE.TextureLoader().load( plutonMapUrl );
+      var plutonMaterial = new THREE.MeshPhongMaterial({ map: plutonMap });
+      var plutonGeometry = new THREE.SphereGeometry( 1, 32, 32 );
+      pluton = new THREE.Mesh(plutonGeometry, plutonMaterial);
+      pluton.position.set(110, 0, 0);
+      
+      pluton_group.add(pluton);
+
+      
       // On précise quels objets peuvent faire de l'ombre, et quels objets peuvent recevoir de l'ombre
+      mercure.castShadow = true;
+      mercure.receiveShadow = true;
+      venus.castShadow = true;
+      venus.receiveShadow = true;
       earth.castShadow = true;
       earth.receiveShadow = true;
       moon.castShadow = true;
       moon.receiveShadow = true;
-
+      mars.castShadow = true;
+      mars.receiveShadow = true;
+      jupiter.castShadow = true;
+      jupiter.receiveShadow = true;
+      saturne.castShadow = true;
+      saturne.receiveShadow = true;
+      uranus.castShadow = true;
+      uranus.receiveShadow = true;
+      neptune.castShadow = true;
+      neptune.receiveShadow = true;
+      pluton.castShadow = true;
+      pluton.receiveShadow = true;
+      
       // Finally, add the mesh and the light(s) to our scene
       // On ajoute tous les éléments au système solaire
-      solarSystem.add( sun_group );
-      solarSystem.add( earth_group );
+      solarSystem.add(sun_group);
+      solarSystem.add(mercure_group);
+      solarSystem.add(venus_group);
+      solarSystem.add(earth_group);
+      solarSystem.add(mars_group);
+      solarSystem.add(jupiter_group);
+      solarSystem.add(saturne_group);
+      solarSystem.add(uranus_group);
+      solarSystem.add(neptune_group);
+      solarSystem.add(pluton_group);
+      
       // On ajoute ensuite le système solaire à la scène
       scene.add(solarSystem);
 
@@ -123,7 +247,7 @@
       controls.dampingFactor = 0.25;
       controls.screenSpacePanning = false;
       controls.minDistance = 1;
-      controls.maxDistance = 20;
+      controls.maxDistance = 10000;
     }
       
     // This function is called regularly to update the canvas webgl.
@@ -154,15 +278,32 @@
 	    // Now we can move objects, camera, etc.
       var angle = fracTime * Math.PI * 2;
       // Notez que l'axe y est l'axe "vertical" usuellement.
+      // Toutes les valeurs de vitesses de rotation sont arrondies et accélérer pour les rendre visibles
+      mercure_group.rotation.y += angle / 8,8;
+      mercure.rotation.y += angle / 5,9;
+      venus_group.rotation.y += angle / 24,3;
+      venus.rotation.y += angle / 22,4;
       earth_group.rotation.y += angle / 36,5; // la terre tourne en 365 jours
       earth.rotation.y       += angle; // et en un jour sur elle-même
       moon_group.rotation.y  += angle / 2,8; // la lune tourne en 28 jours autour de la terre
       moon.rotation.y        += angle / 2,8; // et en 28 jours aussi sur elle-même pour faire face à la terre
-      cameraAngle = earth.matrixWorld.getPosition();
-      camera.lookAt(earth.matrixWorld.getPosition());
+      mars_group.rotation.y += angle / 68,6;
+      mars.rotation.y += angle;
+      jupiter_group.rotation.y += angle / 43,32;
+      jupiter.rotation.y += angle * 4;
+      saturne_group.rotation.y += angle / 107,54;
+      saturne.rotation.y += angle * 4;
+      uranus_group.rotation.y += angle / 306,98;
+      uranus.rotation.y -= angle * 7;
+      neptune_group.rotation.y += angle / 602,16;
+      neptune.rotation.y += angle * 6;
+      pluton_group.rotation.y += angle / 904,87;
+      pluton.rotation.y += angle / 6;
+      //cameraAngle = earth.matrixWorld.getPosition();
+      //camera.lookAt(earth.matrixWorld.getPosition());
       // Contrôle de la caméra par la souris
       controls.update();
-      controls.target = earth.matrixWorld.getPosition();
+      //controls.target = earth.matrixWorld.getPosition(); // Pour centrer la caméra sur la terre
     }
     </script>
   </head>
