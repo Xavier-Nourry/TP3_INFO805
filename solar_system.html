@@ -44,6 +44,7 @@
       var textureCube    = new THREE.CubeTextureLoader().load( urls );
       textureCube.format = THREE.RGBFormat;
       scene.background   = textureCube;
+
       // Add  a camera so we can view the scene
       camera = new THREE.PerspectiveCamera( 45, canvas.width / canvas.height,
               1, 4000 );
@@ -69,6 +70,7 @@
       sun.rotation.y = Math.PI / 5;
       sunLight = new THREE.PointLight( 0xffffff);
       sunLight.position = sun.position;
+      sunLight.intensity = 1.7;
       sun_group.add(sun);
       sun_group.add(sunLight);
 
