@@ -124,7 +124,6 @@
       controls.screenSpacePanning = false;
       controls.minDistance = 1;
       controls.maxDistance = 20;
-      controls.target = earth.position;
     }
       
     // This function is called regularly to update the canvas webgl.
@@ -163,6 +162,7 @@
       camera.lookAt(earth.matrixWorld.getPosition());
       // Contrôle de la caméra par la souris
       controls.update();
+      controls.target = earth.matrixWorld.getPosition();
     }
     </script>
   </head>
