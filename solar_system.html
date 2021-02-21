@@ -8,8 +8,9 @@
   
     <script src="three.js"></script>
     <script src="js/Detector.js"></script>
+    <script src="js/OrbitControls.js"></script>
     <script type="text/javascript">
-      
+
     // Checks that your browser supports WebGL. 
     if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
     
@@ -32,6 +33,17 @@
       renderer.setSize( canvas.width, canvas.height );
       // Create a new Three.js scene
       scene = new THREE.Scene();
+      // Ajout d'un fond
+      var path = "images/MilkyWay/";
+      var format = '.jpg';
+      var urls = [
+          path + 'posx' + format, path + 'negx' + format,
+          path + 'posy' + format, path + 'negy' + format,
+          path + 'posz' + format, path + 'negz' + format
+      ];
+      var textureCube    = new THREE.CubeTextureLoader().load( urls );
+      textureCube.format = THREE.RGBFormat;
+      scene.background   = textureCube;
       // Add  a camera so we can view the scene
       camera = new THREE.PerspectiveCamera( 45, canvas.width / canvas.height,
               1, 4000 );
@@ -88,6 +100,16 @@
       solarSystem.add( earth_group );
       // On ajoute ensuite le système solaire à la scène
       scene.add(solarSystem);
+
+      // Contrôle de la caméra par la souris
+      controls = new THREE.OrbitControls( camera, renderer.domElement );
+      //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
+      controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+      controls.dampingFactor = 0.25;
+      controls.screenSpacePanning = false;
+      controls.minDistance = 1;
+      controls.maxDistance = 20;
+      controls.target = earth.position;
     }
       
     // This function is called regularly to update the canvas webgl.
@@ -122,6 +144,10 @@
       earth.rotation.y       += angle; // et en un jour sur elle-même
       moon_group.rotation.y  += angle / 2,8; // la lune tourne en 28 jours autour de la terre
       moon.rotation.y        += angle / 2,8; // et en 28 jours aussi sur elle-même pour faire face à la terre
+      cameraAngle = earth.matrixWorld.getPosition();
+      camera.lookAt(earth.matrixWorld.getPosition());
+      // Contrôle de la caméra par la souris
+      controls.update();
     }
     </script>
   </head>
