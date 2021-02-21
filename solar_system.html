@@ -31,6 +31,10 @@
               antialias: true } );
       // Set the viewport size
       renderer.setSize( canvas.width, canvas.height );
+      renderer.shadowMap.enabled = true;
+      // On indique au renderer qu'il va devoir calculer des ombres
+      // rendu coûteux mais plus joli (default: THREE.PCFShadowMap)
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap; 
       // Create a new Three.js scene
       scene = new THREE.Scene();
       // Ajout d'un fond
@@ -71,6 +75,9 @@
       sunLight = new THREE.PointLight( 0xffffff);
       sunLight.position = sun.position;
       sunLight.intensity = 1.7;
+      // On indique que la lumière du soleil peut créer des ombres
+      sunLight.castShadow = true;
+      sunLight.shadow.camera.far = 50;
       sun_group.add(sun);
       sun_group.add(sunLight);
 
@@ -95,6 +102,12 @@
       moon_group.add(moon);
       moon_group.position.set(earth.position.x, earth.position.y, earth.position.z);
       earth_group.add(moon_group);
+
+      // On précise quels objets peuvent faire de l'ombre, et quels objets peuvent recevoir de l'ombre
+      earth.castShadow = true;
+      earth.receiveShadow = true;
+      moon.castShadow = true;
+      moon.receiveShadow = true;
 
       // Finally, add the mesh and the light(s) to our scene
       // On ajoute tous les éléments au système solaire
